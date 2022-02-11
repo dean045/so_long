@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:43:21 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 17:00:04 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:18:41 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,24 @@ void	set_monster_position(t_data_engine	**engine)
 	return ;
 }
 
-void	malloc_monsters(t_data_engine	*engine)
+void	*malloc_monsters(t_data_engine	*engine)
 {
-	int	x;
-	int	i;
+	int			x;
+	int			i;
+	t_monster	**tmp;
 
 	i = 0;
 	x = get_monster_nb(engine);
-	engine->monster = malloc(sizeof(t_monster *) * (x));
-	if (!engine->monster)
-		return ;
+	tmp = malloc(sizeof(t_monster **));
+	if (!tmp)
+		return (NULL);
 	while (i < x)
 	{
-		engine->monster[i] = malloc(sizeof(t_monster));
-		if (!engine->monster[i])
-			return ;
+		tmp[i] = malloc(sizeof(t_monster));
+		if (!tmp[i])
+			return (NULL);
+		i++;
 	}
-	engine->monster[i] = NULL;
+	tmp[i] = NULL;
+	return (tmp);
 }

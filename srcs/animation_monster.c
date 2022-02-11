@@ -6,17 +6,18 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:26:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 16:58:26 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:59:17 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	trick_case(t_data_engine *engine, int m)
+void	trick_case(t_data_engine *engine, int m, int *x)
 {
 	if (engine->map->map[engine->monster[m]->y + 1][engine->monster[m]->x] == '0'
 		|| engine->map->map[engine->monster[m]->y + 1][engine->monster[m]->x] == 'P')
 		{
+			*x = 0;
 			engine->monster[m]->y += 1;
 			if (engine->monster[m]->y == engine->player->y &&
 				engine->monster[m]->x == engine->player->x)
@@ -29,9 +30,8 @@ void	trick_case(t_data_engine *engine, int m)
 			put_pixel(engine, engine->element->ground, engine->monster[m]->y - 1,
 				engine->monster[m]->x);
 		}
-		put_pixel(engine, select_monster_face(engine, engine->monster[m]), engine->monster[m]->y, engine->monster[m]->x);
-		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
-			engine->img->img, 0, 0);
+	else
+		*x = 1;
 }
 
 void	refresh_face(t_data_engine *engine)
@@ -39,7 +39,7 @@ void	refresh_face(t_data_engine *engine)
 	int	m;
 
 	m = -1;
-	while (engine->monster[m])
+	while (engine->monster[++m])
 	{
 		put_pixel(engine, engine->element->ground, engine->monster[m]->y, engine->monster[m]->x);
 		put_pixel(engine, select_monster_face(engine, engine->monster[m]), engine->monster[m]->y, engine->monster[m]->x);
@@ -63,16 +63,18 @@ int	animate_monster(t_data_engine *engine)
 {
 	struct timeval	tv2;
 	int				m;
+	int				x;
 	
-	m = -1;
+	x = 1;
 	gettimeofday(&(tv2), NULL);
 	if(tv2.tv_sec ==  engine->tv.tv_sec + 1)
 	{
+		m = -1;
 		while (engine->monster[++m])
 		{
 			gettimeofday(&(engine->tv), NULL);
-			if (engine->map->map[engine->monster[m]->y - 1][engine->monster[m]->x] == '0'
-			|| engine->map->map[engine->monster[m]->y - 1][engine->monster[m]->x] == 'P')
+			if ((engine->map->map[engine->monster[m]->y - 1][engine->monster[m]->x] == '0'
+			|| engine->map->map[engine->monster[m]->y - 1][engine->monster[m]->x] == 'P') && x)
 			{
 				engine->monster[m]->y -= 1;
 				if (engine->monster[m]->y == engine->player->y &&
@@ -87,7 +89,10 @@ int	animate_monster(t_data_engine *engine)
 					engine->monster[m]->x);
 			}
 			else
-				trick_case(engine, m);
+				trick_case(engine, m, &x);
+			put_pixel(engine, select_monster_face(engine, engine->monster[m]), engine->monster[m]->y, engine->monster[m]->x);
+			mlx_put_image_to_window(engine->init->mlx, engine->init->window,
+			engine->img->img, 0, 0);
 		}
 	}
 	return (0);
@@ -100,7 +105,7 @@ int	get_monster_nb(t_data_engine *engine)
 	int	m;
 
 	y = -1;
-	m= 0;
+	m = 0;
 	while (++y < engine->map->line)
 	{
 		x = -1;

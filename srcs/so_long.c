@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 15:47:57 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:21:56 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	init(t_data_engine	**engine, char *map)
 	(*engine)->map = malloc(sizeof(t_map));
 	(*engine)->tmp = malloc(sizeof(t_data_img));
 	(*engine)->player = malloc(sizeof(t_player));
-	malloc_monsters((*engine));
 	(*engine)->map->line = get_nb_lines(map);
 	(*engine)->map->map = init_map(map, (*engine)->map->line);
 	(*engine)->map->column = ft_strlen((*engine)->map->map[0]);
 	(*engine)->map->column -= 1;
 	(*engine)->nb_coup = 0;
+	(*engine)->monster = malloc_monsters((*engine));
 }
 
 void	set_player_position(t_data_engine	**engine)

@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:43 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 16:52:12 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:18:52 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,5 @@ int				animate_monster(t_data_engine *engine);
 void			refresh_face(t_data_engine *engine);
 int				check_monster_pos(int x, int y, t_data_engine *engine);
 int				get_monster_nb(t_data_engine *engine);
-void			malloc_monsters(t_data_engine	*engine);
+void			*malloc_monsters(t_data_engine	*engine);
 #endif
