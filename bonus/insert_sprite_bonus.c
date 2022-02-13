@@ -30,6 +30,22 @@ int	insert_tex(t_data_engine *engine)
 			DOOR_CLOSE, &engine->element->width, &engine->element->height);
 	engine->element->open_door = mlx_xpm_file_to_image(engine->init->mlx,
 			DOOR_OPEN, &engine->element->width, &engine->element->height);
+	engine->element->monster_rt = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_RT, &engine->element->width, &engine->element->height);
+	engine->element->monster_t = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_T, &engine->element->width, &engine->element->height);
+	engine->element->monster_lt = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_LT, &engine->element->width, &engine->element->height);
+	engine->element->monster_l = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_L, &engine->element->width, &engine->element->height);
+	engine->element->monster_r = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_R, &engine->element->width, &engine->element->height);
+	engine->element->monster_lb = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_LB, &engine->element->width, &engine->element->height);
+	engine->element->monster_b = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_B, &engine->element->width, &engine->element->height);
+	engine->element->monster_rb = mlx_xpm_file_to_image(engine->init->mlx,
+			MONSTER_RB, &engine->element->width, &engine->element->height);
 	if (!engine->element->close_door || !engine->element->open_door)
 		return (0);
 	return (1);

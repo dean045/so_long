@@ -52,12 +52,35 @@ void	put_pixel(t_data_engine *engine, void *img, int y, int x)
 	}
 }
 
+void	*select_monster_face(t_data_engine *engine, t_monster	*monster)
+{
+	if (engine->player->x == monster->x && engine->player->y > monster->y)
+		return (engine->element->monster_b);
+	else if (engine->player->x == monster->x && engine->player->y < monster->y)
+		return (engine->element->monster_t);
+	else if (engine->player->x > monster->x && engine->player->y == monster->y)
+		return (engine->element->monster_r);
+	else if (engine->player->x < monster->x && engine->player->y == monster->y)
+		return (engine->element->monster_l);
+	else if (engine->player->x > monster->x && engine->player->y > monster->y)
+		return (engine->element->monster_rb);
+	else if (engine->player->x > monster->x && engine->player->y < monster->y)
+		return (engine->element->monster_rt);
+	else if (engine->player->x < monster->x && engine->player->y > monster->y)
+		return (engine->element->monster_lb);
+	else if (engine->player->x < monster->x && engine->player->y < monster->y)
+		return (engine->element->monster_l);
+	return (NULL);
+}
+
 void	set_element_on_display(t_data_engine	*engine)
 {
 	int	y;
 	int	x;
+	int	m;
 
 	y = -1;
+	m= -1;
 	while (++y < engine->map->line)
 	{
 		x = -1;
@@ -72,6 +95,8 @@ void	set_element_on_display(t_data_engine	*engine)
 				put_pixel(engine, engine->element->coin, y, x);
 			if (engine->map->map[y][x] == 'E')
 				put_pixel(engine, engine->element->close_door, y, x);
+			if (engine->map->map[y][x] == 'M')
+				put_pixel(engine, select_monster_face(engine, engine->monster[++m]), y, x);
 		}
 	}
 }

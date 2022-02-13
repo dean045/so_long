@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 15:47:57 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:21:56 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	init(t_data_engine	**engine, char *map)
 	(*engine)->map->column = ft_strlen((*engine)->map->map[0]);
 	(*engine)->map->column -= 1;
 	(*engine)->nb_coup = 0;
+	(*engine)->monster = malloc_monsters((*engine));
 }
 
 void	set_player_position(t_data_engine	**engine)
@@ -105,19 +106,22 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		err_print(check_files(av[1]));
+		/*err_print(check_files(av[1]));
 		if (check_files(av[1]))
-			return (0);
+			return (0);*/
 		init(&engine, av[1]);
-		err_print(check_map(engine->map->map, engine->map->line));
-		if (check_map(engine->map->map, engine->map->line))
-			return (game_over(engine));
+		//err_print(check_map(engine->map->map, engine->map->line));
+		/*if (check_map(engine->map->map, engine->map->line))
+			return (game_over(engine));*/
+		set_player_position(&engine);
+		set_monster_position(&engine);
 		gettimeofday(&(engine->tv), NULL);
 		display_map(engine);
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);
 		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
+		mlx_loop_hook(engine->init->mlx, animate_monster, engine);
 		mlx_loop(engine->init->mlx);
 		game_over(engine);
 	}

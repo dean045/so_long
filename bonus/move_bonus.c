@@ -35,6 +35,8 @@ void	move_x(t_data_engine	*engine, int move)
 	else if (engine->map->map[engine->player-> y][engine->player->x + move]
 		== 'E' && engine->player->max_coins == engine->player->coins)
 		mlx_loop_end(engine->init->mlx);
+	else if(check_monster_pos(engine->player->x + move, engine->player->y , engine))
+		mlx_loop_end(engine->init->mlx);
 }
 
 void	move_y(t_data_engine	*engine, int move)
@@ -59,6 +61,8 @@ void	move_y(t_data_engine	*engine, int move)
 	}
 	else if (engine->map->map[engine->player->y + move][engine->player->x]
 		== 'E' && engine->player->max_coins == engine->player->coins)
+		mlx_loop_end(engine->init->mlx);
+	else if(check_monster_pos(engine->player->x, engine->player->y + move, engine))
 		mlx_loop_end(engine->init->mlx);
 }
 
@@ -98,6 +102,7 @@ int	key_hook(int keycode, t_data_engine	*engine)
 		move_y(engine, 1);
 	else if (keycode == 119)
 		move_y(engine, -1);
+	refresh_face(engine);
 	mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 		engine->img->img, 0, 0);
 	return (0);
