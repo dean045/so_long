@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:26:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 14:05:48 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:55:50 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	trick_case(t_data_engine *engine, int m, int *x)
 			if (engine->monster[m]->y == engine->player->y &&
 				engine->monster[m]->x == engine->player->x)
 			{
+					engine->player->alive = 0;
 					mlx_loop_end(engine->init->mlx);
 					return ;
 			}
@@ -90,9 +91,12 @@ int	animate_monster(t_data_engine *engine)
 			}
 			else
 				trick_case(engine, m, &x);
-			put_pixel(engine, select_monster_face(engine, engine->monster[m]), engine->monster[m]->y, engine->monster[m]->x);
-			mlx_put_image_to_window(engine->init->mlx, engine->init->window,
-			engine->img->img, 0, 0);
+			if (engine->player->alive == 1)
+			{
+				put_pixel(engine, select_monster_face(engine, engine->monster[m]), engine->monster[m]->y, engine->monster[m]->x);
+				mlx_put_image_to_window(engine->init->mlx, engine->init->window,
+				engine->img->img, 0, 0);
+			}
 		}
 	}
 	return (0);

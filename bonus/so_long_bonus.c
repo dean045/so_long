@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 14:12:58 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:52:16 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init(t_data_engine	**engine, char *map)
 	(*engine)->map->column -= 1;
 	(*engine)->nb_coup = 0;
 	(*engine)->monster = malloc_monsters((*engine));
+	(*engine)->player->alive = 1;
 }
 
 void	set_player_position(t_data_engine	**engine)
@@ -122,7 +123,10 @@ int	main(int ac, char **av)
 		mlx_key_hook(engine->init->window, key_hook, engine);
 		mlx_loop_hook(engine->init->mlx, animate_monster, engine);
 		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
-		mlx_loop(engine->init->mlx);
+		if (engine->player->alive == 1)
+			mlx_loop(engine->init->mlx);
+		else
+			mlx_loop_end(engine->init->mlx);
 		game_over(engine);
 	}
 	else

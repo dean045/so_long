@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:43 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 14:05:50 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:42:14 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_player
 	int	y;
 	int	coins;
 	int	max_coins;
+	int	alive;
 }			t_player;
 
 typedef struct s_monster
