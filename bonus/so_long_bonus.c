@@ -6,13 +6,13 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 15:52:16 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:35:53 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	err_print(int x)
+int	err_print(int x)
 {	
 	if (x != 0)
 		write(1, "Error\n", 6);
@@ -28,6 +28,7 @@ void	err_print(int x)
 		write(1, "Wrong input.\n", 13);
 	else if (x > 9)
 		write(1, "Missing file(s).\n", 18);
+	return (0);
 }
 
 void	init(t_data_engine	**engine, char *map)
@@ -46,6 +47,8 @@ void	init(t_data_engine	**engine, char *map)
 	(*engine)->nb_coup = 0;
 	(*engine)->monster = malloc_monsters((*engine));
 	(*engine)->player->alive = 1;
+	set_player_position(engine);
+	set_monster_position(engine);
 }
 
 void	set_player_position(t_data_engine	**engine)
@@ -107,15 +110,12 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		err_print(check_files(av[1]));
 		if (check_files(av[1]))
-			return (0);
+			return (err_print(check_files(av[1])));
 		init(&engine, av[1]);
 		err_print(check_map(engine->map->map, engine->map->line));
 		if (check_map(engine->map->map, engine->map->line))
 			return (game_over(engine));
-		set_player_position(&engine);
-		set_monster_position(&engine);
 		gettimeofday(&(engine->tv), NULL);
 		display_map(engine);
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
@@ -127,9 +127,8 @@ int	main(int ac, char **av)
 			mlx_loop(engine->init->mlx);
 		else
 			mlx_loop_end(engine->init->mlx);
-		game_over(engine);
+		return (game_over(engine));
 	}
 	else
-		err_print(5);
-	return (0);
+		return (err_print(5));
 }

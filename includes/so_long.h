@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:43 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 15:42:14 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:36:22 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,6 @@ int				check_monster_pos(int x, int y, t_data_engine *engine);
 int				get_monster_nb(t_data_engine *engine);
 void			*malloc_monsters(t_data_engine	*engine);
 void			free_monsters_img(t_data_engine	*engine);
+void			set_player_position(t_data_engine	**engine);
+void			set_element_on_display(t_data_engine	*engine);
 #endif

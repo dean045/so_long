@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:53:43 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 12:08:24 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:04:13 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	free_element(t_data_engine *engine)
 		mlx_destroy_image(engine->init->mlx, engine->element->coin);
 	if (engine->element->close_door)
 		mlx_destroy_image(engine->init->mlx, engine->element->close_door);
-	if (engine->element->open_door)	
+	if (engine->element->open_door)
 		mlx_destroy_image(engine->init->mlx, engine->element->open_door);
 	free_monsters_img(engine);
 	if (engine->element)

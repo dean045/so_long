@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:43:21 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 14:07:00 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:07:42 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_monster_position(t_data_engine	**engine)
 {
 	int	y;
 	int	x;
-	int m;
+	int	m;
 
 	y = -1;
 	m = 0;
@@ -58,11 +58,11 @@ void	free_monsters_img(t_data_engine	*engine)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_lt);
 	if (engine->element->monster_r)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_r);
-	if (engine->element->monster_rb)	
+	if (engine->element->monster_rb)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_rb);
-	if (engine->element->monster_rt)	
+	if (engine->element->monster_rt)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_rt);
-	if (engine->element->monster_t)	
+	if (engine->element->monster_t)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_t);
 	free_monsters(engine);
 }
@@ -87,4 +87,24 @@ void	*malloc_monsters(t_data_engine	*engine)
 		i++;
 	}
 	return (tmp);
+}
+
+int	get_monster_nb(t_data_engine *engine)
+{
+	int	y;
+	int	x;
+	int	m;
+
+	y = -1;
+	m = 0;
+	while (++y < engine->map->line)
+	{
+		x = -1;
+		while (++x < engine->map->column)
+		{
+			if ((engine)->map->map[y][x] == 'M')
+				m++;
+		}
+	}
+	return (m);
 }

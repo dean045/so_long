@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:34:44 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 15:39:23 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:03:37 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	move_x(t_data_engine	*engine, int move)
 	else if (engine->map->map[engine->player-> y][engine->player->x + move]
 		== 'E' && engine->player->max_coins == engine->player->coins)
 		mlx_loop_end(engine->init->mlx);
-	else if(check_monster_pos(engine->player->x + move, engine->player->y , engine))
+	else if (check_monster_pos(engine->player->x + move,
+			engine->player->y, engine))
 		mlx_loop_end(engine->init->mlx);
 }
 
@@ -62,7 +63,8 @@ void	move_y(t_data_engine	*engine, int move)
 	else if (engine->map->map[engine->player->y + move][engine->player->x]
 		== 'E' && engine->player->max_coins == engine->player->coins)
 		mlx_loop_end(engine->init->mlx);
-	else if(check_monster_pos(engine->player->x, engine->player->y + move, engine))
+	else if (check_monster_pos(engine->player->x, engine->player->y + move,
+			engine))
 		mlx_loop_end(engine->init->mlx);
 }
 

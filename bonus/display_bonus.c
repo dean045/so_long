@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   display_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:17:02 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 16:51:30 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:26:51 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,6 @@ void	*select_monster_face(t_data_engine *engine, t_monster	*monster)
 	else if (engine->player->x < monster->x && engine->player->y < monster->y)
 		return (engine->element->monster_l);
 	return (NULL);
-}
-
-void	set_element_on_display(t_data_engine	*engine)
-{
-	int	y;
-	int	x;
-	int	m;
-
-	y = -1;
-	m= -1;
-	while (++y < engine->map->line)
-	{
-		x = -1;
-		while (++x < engine->map->column)
-		{
-			put_pixel(engine, engine->element->ground, y, x);
-			if (engine->map->map[y][x] == '1')
-				put_pixel(engine, engine->element->wall, y, x);
-			if (engine->map->map[y][x] == 'P')
-				put_pixel(engine, engine->element->player, y, x);
-			if (engine->map->map[y][x] == 'C')
-				put_pixel(engine, engine->element->coin, y, x);
-			if (engine->map->map[y][x] == 'E')
-				put_pixel(engine, engine->element->close_door, y, x);
-			if (engine->map->map[y][x] == 'M')
-				put_pixel(engine, select_monster_face(engine, engine->monster[++m]), y, x);
-		}
-	}
 }
 
 void	display_map(t_data_engine	*engine)
