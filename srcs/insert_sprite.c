@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:53:43 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/10 14:27:57 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 10:23:17 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,20 @@ int	insert_tex(t_data_engine *engine)
 
 void	free_element(t_data_engine *engine)
 {
-	mlx_destroy_image(engine->init->mlx, engine->element->wall);
-	mlx_destroy_image(engine->init->mlx, engine->element->ground);
-	mlx_destroy_image(engine->init->mlx, engine->element->player);
-	mlx_destroy_image(engine->init->mlx, engine->element->coin);
-	mlx_destroy_image(engine->init->mlx, engine->element->close_door);
-	mlx_destroy_image(engine->init->mlx, engine->element->open_door);
-	free(engine->element);
+	if (engine->element->wall)
+		mlx_destroy_image(engine->init->mlx, engine->element->wall);
+	if (engine->element->ground)
+		mlx_destroy_image(engine->init->mlx, engine->element->ground);
+	if (engine->element->player)
+		mlx_destroy_image(engine->init->mlx, engine->element->player);
+	if (engine->element->coin)
+		mlx_destroy_image(engine->init->mlx, engine->element->coin);
+	if (engine->element->close_door)
+		mlx_destroy_image(engine->init->mlx, engine->element->close_door);
+	if (engine->element->open_door)	
+		mlx_destroy_image(engine->init->mlx, engine->element->open_door);
+	if (engine->element)
+		free(engine->element);
 }
 
 void	free_img(t_data_engine *engine)

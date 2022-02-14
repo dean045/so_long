@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 15:47:57 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 10:19:55 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	set_player_position(t_data_engine	**engine)
 
 int	game_over(t_data_engine	*engine)
 {
-	if (engine->img)
+	if (engine->img->img)
 		mlx_destroy_image(engine->init->mlx, engine->img->img);
 	if (engine->element)
 		free_element(engine);
@@ -112,7 +112,7 @@ int	main(int ac, char **av)
 		err_print(check_map(engine->map->map, engine->map->line));
 		if (check_map(engine->map->map, engine->map->line))
 			return (game_over(engine));
-		gettimeofday(&(engine->tv), NULL);
+		set_player_position(&engine);
 		display_map(engine);
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
