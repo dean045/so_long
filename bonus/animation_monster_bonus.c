@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   animation_monster.c                                :+:      :+:    :+:   */
+/*   animation_monster_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:26:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 18:59:17 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 14:05:48 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	refresh_face(t_data_engine *engine)
 	int	m;
 
 	m = -1;
-	while (engine->monster[++m])
+	while (++m < engine->nb_monster)
 	{
 		put_pixel(engine, engine->element->ground, engine->monster[m]->y, engine->monster[m]->x);
 		put_pixel(engine, select_monster_face(engine, engine->monster[m]), engine->monster[m]->y, engine->monster[m]->x);
@@ -51,7 +51,7 @@ int	check_monster_pos(int x, int y, t_data_engine *engine)
 	int	m;
 
 	m = -1;
-	while (engine->monster[++m])
+	while (++m < engine->nb_monster)
 	{
 		if (x == engine->monster[m]->x && y == engine->monster[m]->y)
 			return (1);
@@ -70,7 +70,7 @@ int	animate_monster(t_data_engine *engine)
 	if(tv2.tv_sec ==  engine->tv.tv_sec + 1)
 	{
 		m = -1;
-		while (engine->monster[++m])
+		while (++m < engine->nb_monster)
 		{
 			gettimeofday(&(engine->tv), NULL);
 			if ((engine->map->map[engine->monster[m]->y - 1][engine->monster[m]->x] == '0'

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monster_suite.c                                    :+:      :+:    :+:   */
+/*   monster_suite_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:43:21 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 18:18:41 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 14:07:00 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,37 @@ void	set_monster_position(t_data_engine	**engine)
 	return ;
 }
 
+void	free_monsters(t_data_engine	*engine)
+{
+	int	i;
+
+	i = -1;
+	while (++i < engine->nb_monster)
+		free(engine->monster[i]);
+	free(engine->monster);
+}
+
+void	free_monsters_img(t_data_engine	*engine)
+{
+	if (engine->element->monster_b)
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_b);
+	if (engine->element->monster_l)
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_l);
+	if (engine->element->monster_lb)
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_lb);
+	if (engine->element->monster_lt)
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_lt);
+	if (engine->element->monster_r)
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_r);
+	if (engine->element->monster_rb)	
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_rb);
+	if (engine->element->monster_rt)	
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_rt);
+	if (engine->element->monster_t)	
+		mlx_destroy_image(engine->init->mlx, engine->element->monster_t);
+	free_monsters(engine);
+}
+
 void	*malloc_monsters(t_data_engine	*engine)
 {
 	int			x;
@@ -44,6 +75,7 @@ void	*malloc_monsters(t_data_engine	*engine)
 
 	i = 0;
 	x = get_monster_nb(engine);
+	engine->nb_monster = x;
 	tmp = malloc(sizeof(t_monster **));
 	if (!tmp)
 		return (NULL);
@@ -54,6 +86,5 @@ void	*malloc_monsters(t_data_engine	*engine)
 			return (NULL);
 		i++;
 	}
-	tmp[i] = NULL;
 	return (tmp);
 }

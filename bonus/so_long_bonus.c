@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/11 18:21:56 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/14 14:12:58 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	set_player_position(t_data_engine	**engine)
 
 int	game_over(t_data_engine	*engine)
 {
-	if (engine->img)
+	if (engine->img->img)
 		mlx_destroy_image(engine->init->mlx, engine->img->img);
 	if (engine->element)
 		free_element(engine);
@@ -106,13 +106,13 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		/*err_print(check_files(av[1]));
+		err_print(check_files(av[1]));
 		if (check_files(av[1]))
-			return (0);*/
+			return (0);
 		init(&engine, av[1]);
-		//err_print(check_map(engine->map->map, engine->map->line));
-		/*if (check_map(engine->map->map, engine->map->line))
-			return (game_over(engine));*/
+		err_print(check_map(engine->map->map, engine->map->line));
+		if (check_map(engine->map->map, engine->map->line))
+			return (game_over(engine));
 		set_player_position(&engine);
 		set_monster_position(&engine);
 		gettimeofday(&(engine->tv), NULL);
@@ -120,8 +120,8 @@ int	main(int ac, char **av)
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);
-		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
 		mlx_loop_hook(engine->init->mlx, animate_monster, engine);
+		mlx_hook(engine->init->window, 17, 0, mlx_loop_end, engine->init->mlx);
 		mlx_loop(engine->init->mlx);
 		game_over(engine);
 	}
