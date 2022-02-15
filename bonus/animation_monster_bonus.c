@@ -6,19 +6,18 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 16:26:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 16:37:53 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:14:20 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	trick_case(t_data_engine *engine, int m, int *x)
+void	trick_case(t_data_engine *engine, int m)
 {
 	if (engine->map->map[engine->monster[m]->y + 1][engine->monster[m]->x]
 		== '0' || engine->map->map[engine->monster[m]->y + 1]
 		[engine->monster[m]->x] == 'P')
 	{
-		*x = 0;
 		engine->monster[m]->y += 1;
 		if (engine->monster[m]->y == engine->player->y
 			&& engine->monster[m]->x == engine->player->x)
@@ -33,8 +32,6 @@ void	trick_case(t_data_engine *engine, int m, int *x)
 		put_pixel(engine, engine->element->ground, engine->monster[m]->y - 1,
 			engine->monster[m]->x);
 	}
-	else
-		*x = 1;
 }
 
 void	refresh_face(t_data_engine *engine)
@@ -66,14 +63,11 @@ int	check_monster_pos(int x, int y, t_data_engine *engine)
 
 int	animate_2(t_data_engine *engine, int m)
 {
-	int				x;
-
-	x = 1;
 	gettimeofday(&(engine->tv), NULL);
 	if ((engine->map->map[engine->monster[m]->y - 1]
 			[engine->monster[m]->x] == '0' || engine->map->map
 			[engine->monster[m]->y - 1][engine->monster[m]->x]
-		== 'P') && x)
+		== 'P'))
 	{
 		engine->monster[m]->y -= 1;
 		if (engine->monster[m]->y == engine->player->y
@@ -90,7 +84,7 @@ int	animate_2(t_data_engine *engine, int m)
 			engine->monster[m]->y + 1, engine->monster[m]->x);
 	}
 	else
-		trick_case(engine, m, &x);
+		trick_case(engine, m);
 	return (1);
 }
 

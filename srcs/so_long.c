@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 10:19:55 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:11:46 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ int	main(int ac, char **av)
 			return (0);
 		init(&engine, av[1]);
 		err_print(check_map(engine->map->map, engine->map->line));
-		if (check_map(engine->map->map, engine->map->line))
-			return (game_over(engine));
 		set_player_position(&engine);
 		display_map(engine);
+		if (check_map(engine->map->map, engine->map->line))
+			return (game_over(engine));
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);

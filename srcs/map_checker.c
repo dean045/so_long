@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:25:25 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 10:46:32 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:07:49 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	check_map(char **map, int l)
 			return (2);
 		while (++x < size - 1)
 		{
-			if ((y == 0 || y == l) && map[y][x] != '1')
+			if ((y == 0 || y == l - 1) && map[y][x] != '1')
 				return (1);
 			if ((x == 0 || x == (size - 2)) && map[y][x] != '1')
 				return (1);

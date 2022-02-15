@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:09:43 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 16:36:22 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:15:35 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ void			free_img(t_data_engine *engine);
 void			up_coins(t_data_engine *engine);
 void			ft_putnbr_fd(long n, int fd);
 void			set_monster_position(t_data_engine	**engine);
-void			*select_monster_face(t_data_engine	*engine, t_monster *monster);
+void			*select_monster_face(t_data_engine	*engine,
+					t_monster *monster);
 int				animate_monster(t_data_engine *engine);
 void			refresh_face(t_data_engine *engine);
 int				check_monster_pos(int x, int y, t_data_engine *engine);

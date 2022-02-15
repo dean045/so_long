@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 16:35:53 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:06:56 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ int	main(int ac, char **av)
 		if (check_files(av[1]))
 			return (err_print(check_files(av[1])));
 		init(&engine, av[1]);
+		gettimeofday(&(engine->tv), NULL);
+		display_map(engine);
 		err_print(check_map(engine->map->map, engine->map->line));
 		if (check_map(engine->map->map, engine->map->line))
 			return (game_over(engine));
-		gettimeofday(&(engine->tv), NULL);
-		display_map(engine);
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);
