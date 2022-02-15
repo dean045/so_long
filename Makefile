@@ -6,7 +6,7 @@
 #    By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 14:49:32 by abahmani          #+#    #+#              #
-#    Updated: 2022/02/14 11:08:54 by brhajji-         ###   ########.fr        #
+#    Updated: 2022/02/15 11:28:59 by brhajji-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,11 @@ RM				=	rm -f
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME):	$(OBJS)
+	cd minilibx-linux && make
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) minilibx-linux/libmlx_Linux.a -lXext -lX11 -I ./minilibx_linux/
 
 $(BONUS): $(OBJSBONUS)
+	cd minilibx-linux && make
 	$(CC) $(CFLAGS) -o $(BONUS) $(OBJSBONUS) minilibx-linux/libmlx_Linux.a -lXext -lX11 -I ./minilibx_linux/
 
 all:		${NAME}
@@ -50,7 +52,8 @@ all:		${NAME}
 bonus :		$(BONUS)	
 				rm -f $(NAME)
 
-clean:			
+clean:	
+	cd minilibx-linux && make clean	
 	${RM} ${OBJS} ${OBJSBONUS}
 
 fclean:		clean			
