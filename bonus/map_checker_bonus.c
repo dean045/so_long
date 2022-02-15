@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:25:25 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/15 11:03:34 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:54:28 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	check_files(char *map)
 		return (40);
 	if (open("assets/wall.xpm", 0) == -1)
 		return (50);
-	if (open(map, 0) == -1 || !check_ber(map))
+	if (open(map, __O_DIRECTORY) > 0 || open(map, 0) == -1 || !check_ber(map)
+		|| open(map, __O_NOFOLLOW) == -1)
 		return (5);
 	return (0);
 }
@@ -82,6 +83,8 @@ int	check_map(char **map, int l)
 	int	size_n;
 
 	size = ft_strlen(*map);
+	if (!map[0][0])
+		return (99);
 	y = -1;
 	while (++y < l)
 	{

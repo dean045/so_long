@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:43:21 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 16:07:42 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:35:20 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	free_monsters_img(t_data_engine	*engine)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_rt);
 	if (engine->element->monster_t)
 		mlx_destroy_image(engine->init->mlx, engine->element->monster_t);
-	free_monsters(engine);
+	if (engine->monster)
+		free_monsters(engine);
 }
 
 void	*malloc_monsters(t_data_engine	*engine)

@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/15 11:06:56 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:42:43 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	err_print(int x)
 		write(1, "Unknown element on the map.\n", 29);
 	else if (x == 5)
 		write(1, "Wrong input.\n", 13);
+	else if (x == 99)
+		write(1, "Empty map.\n", 12);
 	else if (x > 9)
 		write(1, "Missing file(s).\n", 18);
 	return (0);
