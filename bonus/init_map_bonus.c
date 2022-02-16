@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:26:52 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/14 16:26:59 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:22:33 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,24 @@ void	free_map(t_data_engine	*engine)
 	}
 	free(engine->map->map);
 	free(engine->map);
+}
+
+int	litle_free(t_data_engine	*engine)
+{
+	if (engine->monster)
+		free_monsters(engine);
+	if (engine->img)
+		free_img(engine);
+	if (engine->element)
+		free(engine->element);
+	if (engine->init)
+		free(engine->init);
+	if (engine->map)
+		free_map(engine);
+	if (engine->player)
+		free(engine->player);
+	free(engine);
+	return (0);
 }
 
 void	set_element_on_display(t_data_engine	*engine)

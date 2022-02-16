@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:25:25 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/15 14:54:28 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:13:06 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_map(char **map, int l)
 	int	size_n;
 
 	size = ft_strlen(*map);
-	if (!map[0][0])
+	if (!map || !map[0] || !map[0][0] || l <= 1 || map[0][0] != '1')
 		return (99);
 	y = -1;
 	while (++y < l)

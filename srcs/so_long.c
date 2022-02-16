@@ -6,30 +6,34 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/15 14:42:57 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:05:56 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	err_print(int x)
+int	err_print(int x)
 {	
 	if (x != 0)
+	{
 		write(1, "Error\n", 6);
-	if (x == 1)
-		write(1, "The map is not closed.\n", 24);
-	else if (x == 2)
-		write(1, "the map is not square.\n", 24);
-	else if (x == 3)
-		write(1, "Invalid number of player or dors.\n", 35);
-	else if (x == 4)
-		write(1, "Unknown element on the map.\n", 29);
-	else if (x == 5)
-		write(1, "Wrong input.\n", 13);
-	else if (x == 99)
-		write(1, "Empty map.\n", 12);
-	else if (x > 9)
-		write(1, "Missing file(s).\n", 18);
+		if (x == 1)
+			write(1, "The map is not closed.\n", 24);
+		else if (x == 2)
+			write(1, "the map is not square.\n", 24);
+		else if (x == 3)
+			write(1, "Invalid number of player or dors.\n", 35);
+		else if (x == 4)
+			write(1, "Unknown element on the map.\n", 29);
+		else if (x == 5)
+			write(1, "Wrong input.\n", 13);
+		else if (x == 99)
+			write(1, "Empty map.\n", 12);
+		else if (x > 9)
+			write(1, "Missing file(s).\n", 18);
+		return (1);
+	}
+	return (0);
 }
 
 void	init(t_data_engine	**engine, char *map)
@@ -75,7 +79,7 @@ void	set_player_position(t_data_engine	**engine)
 
 int	game_over(t_data_engine	*engine)
 {
-	if (engine->img->img)
+	if (engine->img && engine->img->img)
 		mlx_destroy_image(engine->init->mlx, engine->img->img);
 	if (engine->element)
 		free_element(engine);
@@ -107,15 +111,16 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		err_print(check_files(av[1]));
-		if (check_files(av[1]))
+		if (err_print(check_files(av[1])))
 			return (0);
 		init(&engine, av[1]);
-		err_print(check_map(engine->map->map, engine->map->line));
-		set_player_position(&engine);
-		display_map(engine);
+		if (!err_print(check_map(engine->map->map, engine->map->line)))
+		{
+			set_player_position(&engine);
+			display_map(engine);
+		}
 		if (check_map(engine->map->map, engine->map->line))
-			return (game_over(engine));
+			return (litle_free(engine));
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);

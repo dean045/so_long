@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:26:52 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/08 12:34:06 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:10:23 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,28 @@ void	free_map(t_data_engine	*engine)
 	i = 0;
 	while (i < engine->map->line)
 	{
-		free(engine->map->map[i]);
+		if (engine->map->map[i])
+			free(engine->map->map[i]);
 		i++;
 	}
-	free(engine->map->map);
-	free(engine->map);
+	if (engine->map->map)
+		free(engine->map->map);
+	if (engine->map)
+		free(engine->map);
+}
+
+int	litle_free(t_data_engine	*engine)
+{
+	if (engine->img)
+		free_img(engine);
+	if (engine->element)
+		free(engine->element);
+	if (engine->init)
+		free(engine->init);
+	if (engine->map)
+		free_map(engine);
+	if (engine->player)
+		free(engine->player);
+	free(engine);
+	return (0);
 }

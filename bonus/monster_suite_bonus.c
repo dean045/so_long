@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 15:43:21 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/15 14:35:20 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:04:27 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	free_monsters(t_data_engine	*engine)
 	i = -1;
 	while (++i < engine->nb_monster)
 		free(engine->monster[i]);
-	free(engine->monster);
+	if (engine->monster)
+		free(engine->monster);
 }
 
 void	free_monsters_img(t_data_engine	*engine)
@@ -68,26 +69,22 @@ void	free_monsters_img(t_data_engine	*engine)
 		free_monsters(engine);
 }
 
-void	*malloc_monsters(t_data_engine	*engine)
+void	malloc_monsters(t_data_engine	**engine)
 {
 	int			x;
 	int			i;
-	t_monster	**tmp;
 
 	i = 0;
-	x = get_monster_nb(engine);
-	engine->nb_monster = x;
-	tmp = malloc(sizeof(t_monster **));
-	if (!tmp)
-		return (NULL);
+	x = get_monster_nb(*engine);
+	(*engine)->nb_monster = x;
+	(*engine)->monster = malloc(sizeof(t_monster *) * x);
 	while (i < x)
 	{
-		tmp[i] = malloc(sizeof(t_monster));
-		if (!tmp[i])
-			return (NULL);
+		(*engine)->monster[i] = malloc(sizeof(t_monster));
+		if (!(*engine)->monster[i])
+			return ;
 		i++;
 	}
-	return (tmp);
 }
 
 int	get_monster_nb(t_data_engine *engine)

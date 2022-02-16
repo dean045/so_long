@@ -6,34 +6,37 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 12:15:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/02/15 14:42:43 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:04:54 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
 int	err_print(int x)
-{	
+{
 	if (x != 0)
+	{
 		write(1, "Error\n", 6);
-	if (x == 1)
-		write(1, "The map is not closed.\n", 24);
-	else if (x == 2)
-		write(1, "the map is not square.\n", 24);
-	else if (x == 3)
-		write(1, "Invalid number of player or dors.\n", 35);
-	else if (x == 4)
-		write(1, "Unknown element on the map.\n", 29);
-	else if (x == 5)
-		write(1, "Wrong input.\n", 13);
-	else if (x == 99)
-		write(1, "Empty map.\n", 12);
-	else if (x > 9)
-		write(1, "Missing file(s).\n", 18);
+		if (x == 1)
+			write(1, "The map is not closed.\n", 24);
+		else if (x == 2)
+			write(1, "the map is not square.\n", 24);
+		else if (x == 3)
+			write(1, "Invalid number of player or dors.\n", 35);
+		else if (x == 4)
+			write(1, "Unknown element on the map.\n", 29);
+		else if (x == 5)
+			write(1, "Wrong input.\n", 13);
+		else if (x == 99)
+			write(1, "Empty map.\n", 12);
+		else if (x > 9)
+			write(1, "Missing file(s).\n", 18);
+		return (1);
+	}
 	return (0);
 }
 
-void	init(t_data_engine	**engine, char *map)
+void	init(t_data_engine **engine, char *map)
 {
 	(*engine) = malloc(sizeof(t_data_engine));
 	(*engine)->element = malloc(sizeof(t_element));
@@ -47,13 +50,13 @@ void	init(t_data_engine	**engine, char *map)
 	(*engine)->map->column = ft_strlen((*engine)->map->map[0]);
 	(*engine)->map->column -= 1;
 	(*engine)->nb_coup = 0;
-	(*engine)->monster = malloc_monsters((*engine));
+	malloc_monsters((engine));
 	(*engine)->player->alive = 1;
 	set_player_position(engine);
 	set_monster_position(engine);
 }
 
-void	set_player_position(t_data_engine	**engine)
+void	set_player_position(t_data_engine **engine)
 {
 	int	y;
 	int	x;
@@ -78,9 +81,9 @@ void	set_player_position(t_data_engine	**engine)
 	return ;
 }
 
-int	game_over(t_data_engine	*engine)
+int	game_over(t_data_engine *engine)
 {
-	if (engine->img->img)
+	if (engine->img && engine->img->img)
 		mlx_destroy_image(engine->init->mlx, engine->img->img);
 	if (engine->element)
 		free_element(engine);
@@ -116,10 +119,9 @@ int	main(int ac, char **av)
 			return (err_print(check_files(av[1])));
 		init(&engine, av[1]);
 		gettimeofday(&(engine->tv), NULL);
+		if (err_print(check_map(engine->map->map, engine->map->line)))
+			return (litle_free(engine));
 		display_map(engine);
-		err_print(check_map(engine->map->map, engine->map->line));
-		if (check_map(engine->map->map, engine->map->line))
-			return (game_over(engine));
 		mlx_put_image_to_window(engine->init->mlx, engine->init->window,
 			engine->img->img, 0, 0);
 		mlx_key_hook(engine->init->window, key_hook, engine);
